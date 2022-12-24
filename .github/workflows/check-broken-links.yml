@@ -1,0 +1,26 @@
+name: Broken Links Checker
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 1 1 * *'
+env:
+  WEBSITE_URL: "https://qdr.syr.edu"
+  ISSUE_TEMPLATE: ".github/workflows/check-broken-links.md"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Run Broken Links Checker
+      run: npx broken-link-checker $WEBSITE_URL --ordered --recursive --force --exclude "10.1177" --exclude "HTTP_503" --exclude "10.1111/" --exclude "via.hypothes.is" --exclude "https://hypothes.is" --exclude "https://www.icpsr.umich.edu"
+
+    - uses: actions/checkout@v3
+      if: failure()
+
+    - uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: ${{ env.ISSUE_TEMPLATE }}
+      if: failure()
