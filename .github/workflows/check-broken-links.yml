@@ -13,7 +13,8 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Run Broken Links Checker
-      run: npx broken-link-checker $WEBSITE_URL --ordered --recursive --follow --exclude "10.1177" --exclude "HTTP_503" --exclude "10.1111/" --exclude "via.hypothes.is" --exclude "https://hypothes.is" --exclude "icpsr.umich.edu" --exclude "doi.org/10.17605" --exclude "doi.org/10.5334" --exclude "doi.org/10.1146" --exclude "doi.org/10.1086" --exclude "about.citiprogram.org/" --exclude "twitter.com" --exclude "pixabay.com" --exclude "pexels.com"
+      run: 
+      run: npx broken-link-checker $WEBSITE_URL --ordered --recursive --follow --exclude "10.1177" --exclude "HTTP_503" --exclude "10.1111/" --exclude "via.hypothes.is" --exclude "https://hypothes.is" --exclude "icpsr.umich.edu" --exclude "doi.org/10.17605" --exclude "doi.org/10.5334" --exclude "doi.org/10.1146" --exclude "doi.org/10.1086" --exclude "about.citiprogram.org/" --exclude "twitter.com" --exclude "pixabay.com" --exclude "pexels.com" --exclude "doi.org/10.31235" --exclude "doi.org/10.1080" --exclude "www.defensoria.gov.co" 
 
     - uses: actions/checkout@v3
       if: failure()
